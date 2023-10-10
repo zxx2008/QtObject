@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ChinaChess.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.3
+** Created by: Qt User Interface Compiler version 5.14.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,10 +10,7 @@
 #define UI_CHINACHESS_H
 
 #include <QtCore/QVariant>
-#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
@@ -33,19 +30,19 @@ public:
     void setupUi(QMainWindow *ChinaChessClass)
     {
         if (ChinaChessClass->objectName().isEmpty())
-            ChinaChessClass->setObjectName(QStringLiteral("ChinaChessClass"));
+            ChinaChessClass->setObjectName(QString::fromUtf8("ChinaChessClass"));
         ChinaChessClass->resize(600, 400);
         menuBar = new QMenuBar(ChinaChessClass);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
+        menuBar->setObjectName(QString::fromUtf8("menuBar"));
         ChinaChessClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(ChinaChessClass);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
+        mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
         ChinaChessClass->addToolBar(mainToolBar);
         centralWidget = new QWidget(ChinaChessClass);
-        centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         ChinaChessClass->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(ChinaChessClass);
-        statusBar->setObjectName(QStringLiteral("statusBar"));
+        statusBar->setObjectName(QString::fromUtf8("statusBar"));
         ChinaChessClass->setStatusBar(statusBar);
 
         retranslateUi(ChinaChessClass);
@@ -55,7 +52,7 @@ public:
 
     void retranslateUi(QMainWindow *ChinaChessClass)
     {
-        ChinaChessClass->setWindowTitle(QApplication::translate("ChinaChessClass", "ChinaChess", Q_NULLPTR));
+        ChinaChessClass->setWindowTitle(QCoreApplication::translate("ChinaChessClass", "ChinaChess", nullptr));
     } // retranslateUi
 
 };
