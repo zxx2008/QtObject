@@ -1,0 +1,10 @@
+﻿  Reading Qt configuration (D:/Qt/5.9.3/msvc2017_64/bin/qmake)
+  uic ChinaChess.ui
+  rcc ChinaChess.qrc
+  moc ChinaChess.h
+   RCC: Warning: No resources in 'D:\workspace\MyNote\QtObject\ChinaChess\ChinaChess\ChinaChess.qrc'.
+  ChinaChess.cpp
+  main.cpp
+  qrc_ChinaChess.cpp
+  moc_ChinaChess.cpp
+  ChinaChess.vcxproj -> D:\workspace\MyNote\QtObject\ChinaChess\x64\Debug\ChinaChess.exe
