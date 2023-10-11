@@ -1,11 +1,11 @@
 #include "ChinaChess.h"
 #include <QDesktopWidget>
 
-ChinaChess::ChinaChess(QWidget *parent)
+ChinaChess::ChinaChess(QWidget* parent)
     : QMainWindow(parent), m_ptrMainView(new QGraphicsView), m_ptrMainScene(new QGraphicsScene)
 {
     ui.setupUi(this);
-    
+
     //设置窗口为对话框的形式，不可改变大小
     setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
     setWindowTitle(tr("中国象棋"));
@@ -22,6 +22,19 @@ ChinaChess::ChinaChess(QWidget *parent)
     nk = new ChessBackground(clientRect.height() - 200);
     //添加到Scene中
     m_ptrMainScene->addItem(nk);
+
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            if (maps[i][j] == NullChess) {
+                continue;
+            }
+            ChessMan* chessman3 = new ChessMan(
+                clientRect.height() - 200, static_cast<ChessType>(maps[i][j]));
+            chessman3->Move(j, i);
+            m_lstChess.push_back(chessman3);
+            m_ptrMainScene->addItem(chessman3);
+        }
+    }
 
     //用View显示Scene
     m_ptrMainView->setScene(m_ptrMainScene);

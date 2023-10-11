@@ -43,9 +43,18 @@
     <ClCompile Include="ChessBackground.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="chess_man.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ChessBackground.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="chess_man.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

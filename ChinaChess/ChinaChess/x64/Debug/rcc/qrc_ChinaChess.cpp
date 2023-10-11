@@ -1,13 +1,13 @@
 /****************************************************************************
 ** Resource object code
 **
-** Created by: The Resource Compiler for Qt version 5.14.2
+** Created by: The Resource Compiler for Qt version 5.9.3
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 static const unsigned char qt_resource_data[] = {
-  // D:/workspace/QtObject/ChinaChess/ChinaChess/bamboo.jpg
+  // D:/workspace/MyNote/QtObject/ChinaChess/ChinaChess/bamboo.jpg
   0x0,0x1,0x9c,0x39,
   0xff,
   0xd8,0xff,0xe1,0x3,0x84,0x45,0x78,0x69,0x66,0x0,0x0,0x49,0x49,0x2a,0x0,0x8,
@@ -6624,7 +6624,7 @@ static const unsigned char qt_resource_struct[] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
   // :/bamboo.jpg
   0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,0x0,0x0,0x0,
-0x0,0x0,0x1,0x89,0x6c,0xc2,0x1,0x68,
+0x0,0x0,0x1,0x8b,0x1d,0xf2,0x80,0x69,
 
 };
 
@@ -6645,6 +6645,7 @@ namespace QT_NAMESPACE {
 #endif
 
 bool qRegisterResourceData(int, const unsigned char *, const unsigned char *, const unsigned char *);
+
 bool qUnregisterResourceData(int, const unsigned char *, const unsigned char *, const unsigned char *);
 
 #ifdef QT_NAMESPACE
@@ -6654,18 +6655,16 @@ bool qUnregisterResourceData(int, const unsigned char *, const unsigned char *, 
 int QT_RCC_MANGLE_NAMESPACE(qInitResources_ChinaChess)();
 int QT_RCC_MANGLE_NAMESPACE(qInitResources_ChinaChess)()
 {
-    int version = 3;
     QT_RCC_PREPEND_NAMESPACE(qRegisterResourceData)
-        (version, qt_resource_struct, qt_resource_name, qt_resource_data);
+        (0x2, qt_resource_struct, qt_resource_name, qt_resource_data);
     return 1;
 }
 
 int QT_RCC_MANGLE_NAMESPACE(qCleanupResources_ChinaChess)();
 int QT_RCC_MANGLE_NAMESPACE(qCleanupResources_ChinaChess)()
 {
-    int version = 3;
     QT_RCC_PREPEND_NAMESPACE(qUnregisterResourceData)
-       (version, qt_resource_struct, qt_resource_name, qt_resource_data);
+       (0x2, qt_resource_struct, qt_resource_name, qt_resource_data);
     return 1;
 }
 

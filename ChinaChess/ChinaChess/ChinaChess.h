@@ -7,6 +7,7 @@
 #include "ChessBackground.h"
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include "chess_man.h"
 
 class ChinaChess : public QMainWindow
 {
@@ -20,4 +21,5 @@ private:
     QGraphicsView* m_ptrMainView;
     QGraphicsScene* m_ptrMainScene;
     ChessBackground* nk;
+    QList<ChessMan*> m_lstChess;
 };

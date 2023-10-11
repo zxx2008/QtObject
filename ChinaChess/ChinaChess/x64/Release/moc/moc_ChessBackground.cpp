@@ -20,25 +20,25 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_ChinaChess_t {
+struct qt_meta_stringdata_ChessBackground_t {
     QByteArrayData data[1];
-    char stringdata0[11];
+    char stringdata0[16];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_ChinaChess_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_ChessBackground_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_ChinaChess_t qt_meta_stringdata_ChinaChess = {
+static const qt_meta_stringdata_ChessBackground_t qt_meta_stringdata_ChessBackground = {
     {
-QT_MOC_LITERAL(0, 0, 10) // "ChinaChess"
+QT_MOC_LITERAL(0, 0, 15) // "ChessBackground"
 
     },
-    "ChinaChess"
+    "ChessBackground"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_ChinaChess[] = {
+static const uint qt_meta_data_ChessBackground[] = {
 
  // content:
        7,       // revision
@@ -54,7 +54,7 @@ static const uint qt_meta_data_ChinaChess[] = {
        0        // eod
 };
 
-void ChinaChess::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void ChessBackground::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     Q_UNUSED(_o);
     Q_UNUSED(_id);
@@ -62,28 +62,28 @@ void ChinaChess::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     Q_UNUSED(_a);
 }
 
-const QMetaObject ChinaChess::staticMetaObject = {
-    { &QObject::staticMetaObject, qt_meta_stringdata_ChinaChess.data,
-      qt_meta_data_ChinaChess,  qt_static_metacall, nullptr, nullptr}
+const QMetaObject ChessBackground::staticMetaObject = {
+    { &QObject::staticMetaObject, qt_meta_stringdata_ChessBackground.data,
+      qt_meta_data_ChessBackground,  qt_static_metacall, nullptr, nullptr}
 };
 
 
-const QMetaObject *ChinaChess::metaObject() const
+const QMetaObject *ChessBackground::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *ChinaChess::qt_metacast(const char *_clname)
+void *ChessBackground::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_ChinaChess.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_ChessBackground.stringdata0))
         return static_cast<void*>(this);
     if (!strcmp(_clname, "QGraphicsItem"))
         return static_cast< QGraphicsItem*>(this);
     return QObject::qt_metacast(_clname);
 }
 
-int ChinaChess::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int ChessBackground::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QObject::qt_metacall(_c, _id, _a);
     return _id;
