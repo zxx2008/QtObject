@@ -16,7 +16,11 @@ ChinaChess::ChinaChess(QWidget* parent)
     //设置View的大小
     m_ptrMainView->setFixedSize(clientRect.height() - 200, clientRect.height() - 200);
 
-    //g_game_width = 
+    g_game_width = clientRect.height() - 200;
+    g_cell_width = (g_game_width) / 10;
+    g_top = (g_game_width - 8 * g_cell_width) / 2;
+    g_left = (g_game_width - 9 * g_cell_width) / 2;
+    g_chess_man_width = g_game_width / 13;
 
     //画棋盘背景
     nk = new ChessBackground(clientRect.height() - 200);

@@ -115,10 +115,9 @@ void ChessMan::paintBlackChess(QPainter* painter, QString str) {
     painter->setPen(QPen(Qt::black, 3, Qt::SolidLine));
     painter->drawEllipse(6, 6, m_width - 12, m_width - 12);
 
-    //给棋子刻字
-    QFont font;     //字体变量，下面设置字体
-    font.setFamily("CESI楷体-GB13000"); //字体样式
-    font.setPixelSize(m_width * 0.35); // 字体大小
+    QFont font;  //设置字体，下面设置字体属性
+    font.setFamily("CESI楷体-GB13000");  //字体样式
+    font.setPointSize(m_width * 0.35);   //字体点大小
     painter->setFont(font);
     painter->setPen(QPen(Qt::black, 3, Qt::SolidLine));
     painter->drawText(0, 0, m_width, m_width, Qt::AlignCenter, str);
@@ -175,7 +174,7 @@ void ChessMan::paintPaoB(QPainter* painter) {
 }
 
 void ChessMan::paintBingB(QPainter* painter) {
-    paintBlackChess(painter, "兵");
+    paintBlackChess(painter, "卒");
 }
 
 void ChessMan::paintCheR(QPainter* painter) {
