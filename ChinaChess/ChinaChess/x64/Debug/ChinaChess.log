@@ -1,3 +1,39 @@
-﻿  Reading Qt configuration (D:/Qt/Qt5.14.2/5.14.2/msvc2017_64/bin/qmake)
+﻿  Reading Qt configuration (D:/Qt/5.9.3/msvc2017_64/bin/qmake)
+  uic ChinaChess.ui
+  rcc ChinaChess.qrc
+  moc ChinaChess.h
+  moc ChessBackground.h
+  moc chess_man.h
+   D:\workspace\MyNote\QtObject\ChinaChess\ChinaChess\ChessBackground.h(20): Warning: Class ChessBackground implements the interface QGraphicsItem but does not list it in Q_INTERFACES. qobject_cast to QGraphicsItem will not work!
+   D:\workspace\MyNote\QtObject\ChinaChess\ChinaChess\chess_man.h(55): Warning: Class ChessMan implements the interface QGraphicsItem but does not list it in Q_INTERFACES. qobject_cast to QGraphicsItem will not work!
+  ChessBackground.cpp
+  ChinaChess.cpp
   chess_man.cpp
-  ChinaChess.vcxproj -> D:\workspace\QtObject\ChinaChess\x64\Debug\ChinaChess.exe
+  common.cpp
+  main.cpp
+D:\workspace\MyNote\QtObject\ChinaChess\ChinaChess\ChinaChess.cpp(61,68): error C3867: “ChessMan::getChessType”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\workspace\MyNote\QtObject\ChinaChess\ChinaChess\ChinaChess.cpp(61,68): error C2678: 二进制“>”: 没有找到接受“overloaded-function”类型的左操作数的运算符(或没有可接受的转换)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1680,32): message : 可能是“bool operator >(const QByteArray &,const QStringRef &)” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1673,32): message : 或    “bool operator >(const QStringRef &,const QByteArray &)” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1664,13): message : 或    “bool operator >(QLatin1String,QChar) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1645,13): message : 或    “bool operator >(const QStringRef &,QChar) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1626,13): message : 或    “bool operator >(const QString &,QChar) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1607,13): message : 或    “bool operator >(const QStringRef &,QLatin1String) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1600,13): message : 或    “bool operator >(QLatin1String,const QStringRef &) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1575,13): message : 或    “bool operator >(const QStringRef &,const QString &) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1568,13): message : 或    “bool operator >(const QString &,const QStringRef &) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1557,13): message : 或    “bool operator >(const QStringRef &,const QStringRef &) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1216,32): message : 或    “bool operator >(const char *,QLatin1String)” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1163,13): message : 或    “bool operator >(QLatin1String,QLatin1String) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1654,13): message : 或    “bool operator >(QChar,QLatin1String) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1635,13): message : 或    “bool operator >(QChar,const QStringRef &) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1616,13): message : 或    “bool operator >(QChar,const QString &) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1706,32): message : 或    “bool operator >(const char *,const QStringRef &)” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qstring.h(1203,32): message : 或    “bool operator >(const char *,const QString &)” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qbytearray.h(622,13): message : 或    “bool operator >(const char *,const QByteArray &) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qbytearray.h(620,13): message : 或    “bool operator >(const QByteArray &,const char *) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qbytearray.h(618,13): message : 或    “bool operator >(const QByteArray &,const QByteArray &) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qchar.h(594,30): message : 或    “bool operator >(std::nullptr_t,QChar) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qchar.h(589,30): message : 或    “bool operator >(QChar,std::nullptr_t) noexcept” (编译源文件 ChinaChess.cpp)
+D:\Qt\5.9.3\msvc2017_64\include\QtCore\qchar.h(578,30): message : 或    “bool operator >(QChar,QChar) noexcept” (编译源文件 ChinaChess.cpp)
+D:\workspace\MyNote\QtObject\ChinaChess\ChinaChess\ChinaChess.cpp(61,68): message : 尝试匹配参数列表“(overloaded-function, ChessType)”时
