@@ -21,15 +21,15 @@ public:
     RoleType getRole();     //获取当前角色
     QPoint getChessboardCoordinates(int mouse_x, int mouse_y);  //通过鼠标获取棋盘的坐标点
 
-    //选中指定坐标的棋子
     void clearSelectChess();
+    //通过坐标返回指定的棋子,如果坐标没有棋子返回nullptr
     void selectChess(int x, int y);
-    ChessMan* getChess(int x, int y);   // 通过坐标获得棋子
+    ChessMan* getChess(int x, int y);   // 通过坐标获得棋子,当前坐标没有棋子时返回nullptr
     void MoveChess(ChessMan* chess, int x, int y);
     void MoveData(ChessMan* chess, int x, int y);
 
-    bool MoveBindR(ChessMan* chess, int x, int y);
-    bool MoveBindB(ChessMan* chess, int x, int y);
+    bool MoveBingR(ChessMan* chess, int x, int y);
+    bool MoveBingB(ChessMan* chess, int x, int y);
     bool MoveXiangR(ChessMan* chess, int x, int y);
     bool MoveXiangB(ChessMan* chess, int x, int y);
     bool MoveShiR(ChessMan* chess, int x, int y);

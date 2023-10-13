@@ -1,9 +1,10 @@
 #include "ChinaChess.h"
 #include <QDesktopWidget>
 #include <QMouseEvent>
+#include <QDebug>
 
 ChinaChess::ChinaChess(QWidget* parent)
-    : QMainWindow(parent), m_ptrMainView(new QGraphicsView), m_ptrMainScene(new QGraphicsScene)
+    : QMainWindow(parent), m_ptrMainView(new QGraphicsView), m_ptrMainScene(new QGraphicsScene), m_Role(Red), m_gameType(running)
 {
     ui.setupUi(this);
 
@@ -44,6 +45,7 @@ ChinaChess::ChinaChess(QWidget* parent)
     //用View显示Scene
     m_ptrMainView->setScene(m_ptrMainScene);
     setCentralWidget(m_ptrMainView);
+    this->setMouseTracking(true);
 }
 
 ChinaChess::~ChinaChess() {}
@@ -58,7 +60,7 @@ void ChinaChess::selectChess(int x, int y) {
             if (m_Role == Red && item->getChessType() <= Bing_R) {
                 item->setSelectedStatus(true);
             }
-            else if (m_Role == Black && item->getChessType > Bing_R) {
+            else if (m_Role == Black && item->getChessType() > Bing_R) {
                 item->setSelectedStatus(true);
             }
         }
@@ -80,16 +82,304 @@ void ChinaChess::mousePressEvent(QMouseEvent* event) {
 
     //已选中棋子的情况
     if (this->getSelectedChess() != QPoint(-1, -1)) {
-        if (m_Role == Red) {
-            for (auto& item : m_lstChess) {
-                if (x != -1 && y != -1 && item->getX() == x && item->getY() == y && item->getChessType() <= Bing_R) {
+        for (auto item : m_lstChess) {
+            if (m_Role == Red) {
+                if (x != -1 && y != -1 && x == item->getX() && y == item->getY() && item->getChessType() <= Bing_R) {
+                    //如果红色方出子，选中棋子为红色则选中
+                    selectChess(x, y);
+                    return;
+                }
+            }
+            else if (m_Role == Black) {
+                if (x != -1 && y != -1 && x == item->getX() && y == item->getY() && item->getChessType() > Bing_R) {
+                    //如果黑色方出子，选中棋子为黑色则选中
                     selectChess(x, y);
                     return;
                 }
             }
         }
-        else if (m_Role == Black) {
-            
+        //如果上述的if没有触发说明，选择的是没有棋子的或有敌方棋子的地方，这样就可以进行移动了
+        for (auto& item : m_lstChess) {
+            if (item->getSelectedStatus() && x != -1 && y != -1) {
+                if (x != item->getX() || y != item->getY()) {
+                    MoveChess(item, x, y);
+                }
+            }
+        }
+        
+    }
+    else {
+        //没有选中任何棋子的情况下，选择鼠标位置的棋子，这里没有进行红方和黑方行棋的判断，
+        //那是因为selectChess函数内部做了红方和黑方的判断
+        selectChess(x, y);
+    }
+
+    qInfo() << "x:" << x << ",y:" << y;
+}
+
+//获得当前选中的棋子返回QPoint 如果没有选中任何棋子返回 QPoint(-1, -1)
+QPoint ChinaChess::getSelectedChess() {
+    int x = -1, y = -1;
+    for (auto& item : m_lstChess) {
+        if (item->getSelectedStatus()) {
+            x = item->getX();
+            y = item->getY();
         }
     }
+    return QPoint(x, y);
+}
+
+RoleType ChinaChess::getRole() {
+    return m_Role;
+}
+
+//通过鼠标的位置返回棋盘坐标
+QPoint ChinaChess::getChessboardCoordinates(int mouse_x, int mouse_y) {
+    int x = -1, y = -1;
+    int half_chess_man_width = g_chess_man_width / 2;
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            int x1 = g_top + i * g_cell_width - half_chess_man_width;
+            int y1 = g_left + j * g_cell_width - half_chess_man_width;
+
+            int x2 = g_top + i * g_cell_width + half_chess_man_width;
+            int y2 = g_left + j * g_cell_width + half_chess_man_width;
+
+            if (mouse_x >= x1 && mouse_x <= x2 && mouse_y >= y1 && mouse_y <= y2) {
+                x = i;
+                y = j;
+                break;
+            }
+        }
+    }
+    return QPoint(x, y);
+}
+
+ChessMan* ChinaChess::getChess(int x, int y) {
+    for (auto item : m_lstChess) {
+        if (item->getX() == x && item->getY() == y) {
+            return item;
+        }
+    }
+    return nullptr;
+}
+
+void ChinaChess::MoveChess(ChessMan* chess, int x, int y) {
+    bool res = false;
+    switch (chess->getChessType()) {
+    case Bing_R:
+        res = MoveBingR(chess, x, y);
+        break;
+    case Bing_B:
+        res = MoveBingB(chess, x, y);
+        break;
+    case Ma_R:
+    case Ma_B:
+        res = MoveMa(chess, x, y);
+        break;
+    case Xiang_R:
+        res = MoveXiangR(chess, x, y);
+        break;
+    case Xiang_B:
+        res = MoveXiangB(chess, x, y);
+        break;
+    case Shi_R:
+        res = MoveShiR(chess, x, y);
+        break;
+    case Shi_B:
+        res = MoveShiB(chess, x, y);
+        break;
+    case Che_R:
+    case Che_B:
+        res = MoveChe(chess, x, y);
+        break;
+    case Pao_R:
+    case Pao_B:
+        res = MovePao(chess, x, y);
+        break;
+    case Jiang_R:
+        res = MoveJiangR(chess, x, y);
+        break;
+    case Jiang_B:
+        res = MoveJiangB(chess, x, y);
+        break;
+    }
+    
+    //打印移动信息
+    if (res) {
+        MoveData(chess, x, y);
+        //轮到对手走棋
+        if (m_Role == Red) {
+            m_Role = Black;
+        }
+        else {
+            m_Role = Red;
+        }
+        //取消棋子选择
+        chess->setSelectedStatus(false);
+    }
+}
+
+//实现吃子
+void ChinaChess::MoveData(ChessMan* chess, int x, int y) {
+    ChessMan* tempChess = getChess(x, y);
+    if (tempChess != nullptr) {
+        tempChess->setLive(false);
+    }
+    chess->Move(x, y);
+}
+
+//用于判断移动是否成立
+bool ChinaChess::MoveBingR(ChessMan* chess, int x, int y) {
+    bool res = false;
+    if (y > 4) {
+        if (chess->getY() == y + 1 && chess->getX() == x) {
+            res = true;
+        }
+    }
+    else {
+        if (chess->getX() == x && chess->getY() == y + 1) {
+            res = true;
+        }
+        else if ((chess->getX() == x + 1 || chess->getX() == x - 1) && chess->getY() == y) {
+            res = true;
+        }
+    }
+
+    return res;
+}
+
+bool ChinaChess::MoveBingB(ChessMan* chess, int x, int y) {
+    bool res = false;
+    if (y <= 4) {
+        if (chess->getY() == y - 1 && chess->getX() == x) {
+            res = true;
+        }
+    }
+    else {
+        if (chess->getY() == y - 1 && chess->getX() == x) {
+            res = true;
+        }
+        else if ((chess->getX() == x + 1 || chess->getX() == x - 1) && chess->getY() == y) {
+            res = true;
+        }
+    }
+    return res;
+}
+
+bool ChinaChess::MoveChe(ChessMan* chess, int x, int y) {
+    bool res = false;
+    return res;
+}
+
+bool ChinaChess::MoveMa(ChessMan* chess, int x, int y) {
+    bool res = false;
+    if (abs(chess->getX() - x) + abs(chess->getY() - y) == 3 && abs(abs(chess->getX() - x) - abs(chess->getY() - y)) == 1) {
+        res = true;
+    }
+    else {
+        return false;
+    }
+    //蹩马腿判断
+    if (abs(chess->getX() - x) == 2) {
+        if (x > chess->getX()) {
+            ChessMan* tempchess = getChess(chess->getX() + 1, chess->getY());
+            if (tempchess != nullptr) {
+                res = false;
+            }
+        }
+        else {
+            ChessMan* tempchess = getChess(chess->getX() - 1, chess->getY());
+            if (tempchess != nullptr) {
+                res = false;
+            }
+        }
+    }
+    else if (abs(chess->getY() - y) == 2) {
+        if (y > chess->getY()) {
+            ChessMan* tempchess = getChess(chess->getX(), chess->getY() + 1);
+            if (tempchess != nullptr) {
+                res = false;
+            }
+        }
+        else {
+            ChessMan* tempchess = getChess(chess->getX(), chess->getY() - 1);
+            if (tempchess != nullptr) {
+                res = false;
+            }
+        }
+    }
+    return res;
+}
+
+bool ChinaChess::MoveXiangR(ChessMan* chess, int x, int y) {
+    bool res = false;
+    if (abs(chess->getX() - x) == 2 && abs(chess->getY() - y) == 2 && y >= 5) {
+        res = true;
+        int tempx = (chess->getX() + x) / 2;
+        int tempy = (chess->getY() + y) / 2;
+        ChessMan* tempchess = getChess(tempx, tempy);
+        if (tempchess != nullptr) {
+            res = false;
+        }
+    }
+    return res;
+}
+
+bool ChinaChess::MoveXiangB(ChessMan* chess, int x, int y) {
+    bool res = false;
+    if (abs(chess->getX() - x) == 2 && abs(chess->getY() - y) == 2 && y <= 4) {
+        res = true;
+        //塞象眼判断
+        int tempx = (chess->getX() + x) / 2;
+        int tempy = (chess->getY() + y) / 2;
+        ChessMan* tempchess = getChess(tempx, tempy);
+        if (tempchess != nullptr) {
+            res = false;
+        }
+    }
+    return res;
+}
+
+bool ChinaChess::MoveShiR(ChessMan* chess, int x, int y) {
+    bool res = false;
+    if (abs(chess->getX() - x) == 1 && abs(chess->getY() - y) == 1 && x >= 3 && x <= 5 && y >= 7) {
+        res = true;
+    }
+    return res;
+}
+
+bool ChinaChess::MoveShiB(ChessMan* chess, int x, int y) {
+    bool res = false;
+    if (abs(chess->getX() - x) == 1 && abs(chess->getY() - y) == 1 && x >= 3 && x <= 5 && y <= 2) {
+        res = true;
+    }
+    return res;
+}
+
+bool ChinaChess::MoveJiangR(ChessMan* chess, int x, int y) {
+    if (x >= 3 && x <= 5 && y >= 7) {
+        if (abs(chess->getX() - x) + abs(chess->getY() - y) == 1) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool ChinaChess::MoveJiangB(ChessMan* chess, int x, int y) {
+    if (x >= 3 && x <= 5 && y <= 2) {
+        if (abs(chess->getX() - x) + abs(chess->getY() - y) == 1) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool ChinaChess::MovePao(ChessMan* chess, int x, int y) {
+    bool res = false;
+    return res;
+}
+
+void ChinaChess::resizeEvent(QResizeEvent* event) {
+    this->setFixedSize(this->size());
 }
