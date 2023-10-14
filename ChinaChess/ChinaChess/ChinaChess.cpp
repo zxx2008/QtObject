@@ -2,6 +2,7 @@
 #include <QDesktopWidget>
 #include <QMouseEvent>
 #include <QDebug>
+#include <QMessageBox>
 
 ChinaChess::ChinaChess(QWidget* parent)
     : QMainWindow(parent), m_ptrMainView(new QGraphicsView), m_ptrMainScene(new QGraphicsScene), m_Role(Red), m_gameType(running)
@@ -54,8 +55,8 @@ ChinaChess::~ChinaChess() {}
 void ChinaChess::selectChess(int x, int y) {
     clearSelectChess();     //清除所有的棋子选中状态
     for (auto item : m_lstChess) {
-        //找到对应棋子判断是否存活，如果存活才能被选中
-        if (x == item->getX() && y == item->getY()) {
+        //找到对应棋子判断是否存活，如果存活才能被选中(为了防止被吃掉的棋子影响选择)
+        if (x == item->getX() && y == item->getY() && item->getLive()) {
             //需要判断其选择的棋子颜色是否和出子的方颜色相同
             if (m_Role == Red && item->getChessType() <= Bing_R) {
                 item->setSelectedStatus(true);
@@ -82,17 +83,32 @@ void ChinaChess::mousePressEvent(QMouseEvent* event) {
 
     //已选中棋子的情况
     if (this->getSelectedChess() != QPoint(-1, -1)) {
-        for (auto item : m_lstChess) {
+        //for (auto item : m_lstChess) {
+        //    if (m_Role == Red) {
+        //        if (x != -1 && y != -1 && x == item->getX() && y == item->getY() && item->getChessType() <= Bing_R) {
+        //            //如果红色方出子，选中棋子为红色则选中
+        //            selectChess(x, y);
+        //            return;
+        //        }
+        //    }
+        //    else if (m_Role == Black) {
+        //        if (x != -1 && y != -1 && x == item->getX() && y == item->getY() && item->getChessType() > Bing_R) {
+        //            //如果黑色方出子，选中棋子为黑色则选中
+        //            selectChess(x, y);
+        //            return;
+        //        }
+        //    }
+        //}
+        ChessMan* tempchess = getChess(x, y);
+        if (tempchess != nullptr) {
             if (m_Role == Red) {
-                if (x != -1 && y != -1 && x == item->getX() && y == item->getY() && item->getChessType() <= Bing_R) {
-                    //如果红色方出子，选中棋子为红色则选中
+                if (tempchess->getChessType() <= Bing_R) {
                     selectChess(x, y);
                     return;
                 }
             }
             else if (m_Role == Black) {
-                if (x != -1 && y != -1 && x == item->getX() && y == item->getY() && item->getChessType() > Bing_R) {
-                    //如果黑色方出子，选中棋子为黑色则选中
+                if (tempchess->getChessType() > Bing_R) {
                     selectChess(x, y);
                     return;
                 }
@@ -218,6 +234,16 @@ void ChinaChess::MoveChess(ChessMan* chess, int x, int y) {
         //取消棋子选择
         chess->setSelectedStatus(false);
     }
+    GameType gameType = gameover();
+    if (gameType != running) {
+        if (gameType == Red_win)
+        {
+            QMessageBox::information(nullptr, "提示", "游戏结束，红方获胜！");
+        }
+        else {
+            QMessageBox::information(nullptr, "提示", "游戏结束，红方获胜！");
+        }
+    }
 }
 
 //实现吃子
@@ -268,8 +294,49 @@ bool ChinaChess::MoveBingB(ChessMan* chess, int x, int y) {
 }
 
 bool ChinaChess::MoveChe(ChessMan* chess, int x, int y) {
-    bool res = false;
-    return res;
+    //bool res = false;
+    int min = 0, max = 0;
+    //判断走竖线的情况
+    if (chess->getX() == x, chess->getY() != y) {
+        if (chess->getY() < y) {
+            min = chess->getY();
+            max = y;
+        }
+        else {
+            min = y;
+            max = chess->getY();
+        }
+        //如果中间有棋子则移动不成功
+        for (int i = min + 1; i < max; ++i) {
+            ChessMan* tempchess = getChess(x, i);
+            if (tempchess != nullptr) {
+                return false;
+            }
+        }
+        return true;
+    }
+    //判断走横线的情况
+    else if (chess->getY() == y && chess->getX() != x) {
+        if (chess->getX() < x) {
+            min = chess->getX();
+            max = x;
+        }
+        else {
+            min = x;
+            max = chess->getX();
+        }
+        for (int i = min + 1; i < max; ++i) {
+            ChessMan* tempchess = getChess(i, y);
+            if (tempchess != nullptr) {
+                return false;
+            }
+        }
+        return true;
+    }
+    else {
+        return false;
+    }
+    //return res;
 }
 
 bool ChinaChess::MoveMa(ChessMan* chess, int x, int y) {
@@ -376,10 +443,143 @@ bool ChinaChess::MoveJiangB(ChessMan* chess, int x, int y) {
 }
 
 bool ChinaChess::MovePao(ChessMan* chess, int x, int y) {
-    bool res = false;
-    return res;
+    int min = 0, max = 0;
+    ChessMan* chessman = getChess(x, y);
+    //棋子走竖线的情况
+    if (chess->getX() == x, chess->getY() != y) {
+        //炮向下移动的情况
+        if (chess->getY() < y) {
+            min = chess->getY();
+            max = y;
+            //炮没有吃子的情况
+            if (chessman == nullptr) {
+                for (int i = min + 1; i < max; ++i) {
+                    if (getChess(x, i) != nullptr) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            //炮吃子的情况
+            else {
+                int count = 0;
+                for (int i = min + 1; i < max; ++i) {
+                    if (getChess(x, i) != nullptr) {
+                        ++count;
+                    }
+                }
+                if (count == 1) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+        //炮向上移动的情况
+        else {
+            min = y;
+            max = chess->getY();
+            //炮没有吃子的情况
+            if (chessman == nullptr) {
+                for (int i = min + 1; i < max; ++i) {
+                    if (getChess(x, i) != nullptr) {
+                        return false;
+                    }
+                    return true;
+                }
+            }
+            //炮吃子的情况
+            else {
+                int count = 0;
+                for (int i = min + 1; i < max; ++i) {
+                    if (getChess(x, i) != nullptr) {
+                        ++count;
+                    }
+                }
+                if (count == 1) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+    }
+    //炮走横线的情况
+    else if (chess->getY() == y && chess->getX() != x) {
+        //炮向右走的情况
+        if (chess->getX() < x) {
+            min = chess->getX();
+            max = x;
+            //炮没吃子的情况
+            if (chessman == nullptr) {
+                for (int i = min + 1; i < max; ++i) {
+                    if (getChess(i, y) != nullptr) {
+                        return false;
+                    }
+                    return true;
+                }
+            }
+            //炮吃子的情况
+            else {
+                int count = 0;
+                for (int i = min + 1; i < max; ++i) {
+                    if (getChess(i, y) != nullptr) {
+                        ++count;
+                    }
+                }
+                if (count == 1) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+        else {
+            min = x;
+            max = chess->getX();
+            //炮没吃子的情况
+            if (chessman == nullptr) {
+                for (int i = min + 1; i < max; ++i) {
+                    if (getChess(i, y) != nullptr) {
+                        return false;
+                    }
+                    return true;
+                }
+            }
+            //炮吃子的情况
+            else {
+                int count = 0;
+                for (int i = min + 1; i < max; ++i) {
+                    if (getChess(i, y) != nullptr) {
+                        ++count;
+                    }
+                }
+                if (count == 1) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+    }
 }
 
 void ChinaChess::resizeEvent(QResizeEvent* event) {
     this->setFixedSize(this->size());
+}
+
+GameType ChinaChess::gameover() {
+    for (auto& item : m_lstChess) {
+        if (item->getChessType() == Jiang_B && !item->getLive()) {
+            return Red_win;
+        }
+        else if (item->getChessType() == Jiang_R && !item->getLive()) {
+            return Black_win;
+        }
+    }
+    return running;
 }

@@ -1,3 +1,4 @@
 ﻿  Reading Qt configuration (D:/Qt/5.9.3/msvc2017_64/bin/qmake)
   ChinaChess.cpp
+D:\workspace\MyNote\QtObject\ChinaChess\ChinaChess\ChinaChess.cpp(569): warning C4715: “ChinaChess::MovePao”: 不是所有的控件路径都返回值
   ChinaChess.vcxproj -> D:\workspace\MyNote\QtObject\ChinaChess\x64\Debug\ChinaChess.exe
