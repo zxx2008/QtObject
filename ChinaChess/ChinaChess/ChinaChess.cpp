@@ -173,7 +173,7 @@ QPoint ChinaChess::getChessboardCoordinates(int mouse_x, int mouse_y) {
 
 ChessMan* ChinaChess::getChess(int x, int y) {
     for (auto item : m_lstChess) {
-        if (item->getX() == x && item->getY() == y) {
+        if (item->getX() == x && item->getY() == y && item->getLive()) {
             return item;
         }
     }
