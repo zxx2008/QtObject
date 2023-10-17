@@ -1,4 +1,10 @@
 <RCC>
-    <qresource prefix="MusicPlayer">
+    <qresource prefix="/">
+        <file>C:/Users/26659/Downloads/素材.svg</file>
+        <file>C:/Users/26659/Downloads/option.svg</file>
+        <file>C:/Users/26659/Downloads/volume.svg</file>
+        <file>C:/Users/26659/Downloads/play.svg</file>
+        <file>C:/Users/26659/Downloads/next.svg</file>
+        <file>C:/Users/26659/Downloads/last.svg</file>
     </qresource>
 </RCC>

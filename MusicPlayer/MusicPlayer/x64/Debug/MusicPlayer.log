@@ -1,10 +1,6 @@
 ﻿  Reading Qt configuration (D:/Qt/5.9.3/msvc2017_64/bin/qmake)
-  uic MusicPlayer.ui
-  rcc MusicPlayer.qrc
   moc MusicPlayer.h
-   RCC: Warning: No resources in 'D:\workspace\MyNote\QtObject\MusicPlayer\MusicPlayer\MusicPlayer.qrc'.
   MusicPlayer.cpp
   main.cpp
-  qrc_MusicPlayer.cpp
   moc_MusicPlayer.cpp
   MusicPlayer.vcxproj -> D:\workspace\MyNote\QtObject\MusicPlayer\x64\Debug\MusicPlayer.exe
