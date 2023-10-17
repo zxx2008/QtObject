@@ -1,6 +1,2 @@
-﻿  Reading Qt configuration (D:/Qt/5.9.3/msvc2017_64/bin/qmake)
-  moc MusicPlayer.h
-  MusicPlayer.cpp
-  main.cpp
-  moc_MusicPlayer.cpp
-  MusicPlayer.vcxproj -> D:\workspace\MyNote\QtObject\MusicPlayer\x64\Debug\MusicPlayer.exe
+﻿  Reading Qt configuration (D:/Qt/Qt5.14.2/5.14.2/msvc2017_64/bin/qmake)
+  MusicPlayer.vcxproj -> D:\workspace\QtObject\MusicPlayer\x64\Debug\MusicPlayer.exe
