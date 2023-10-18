@@ -1,10 +1,10 @@
 <RCC>
     <qresource prefix="/">
-        <file>C:/Users/Zu XiXin/Downloads/option.svg</file>
-        <file>C:/Users/Zu XiXin/Downloads/play.svg</file>
-        <file>C:/Users/Zu XiXin/Downloads/last.svg</file>
-        <file>C:/Users/Zu XiXin/Downloads/next.svg</file>
-        <file>C:/Users/Zu XiXin/Downloads/素材.svg</file>
-        <file>C:/Users/Zu XiXin/Downloads/volume.svg</file>
+        <file>last.svg</file>
+        <file>next.svg</file>
+        <file>option.svg</file>
+        <file>play.svg</file>
+        <file>volume.svg</file>
+        <file>素材.svg</file>
     </qresource>
 </RCC>

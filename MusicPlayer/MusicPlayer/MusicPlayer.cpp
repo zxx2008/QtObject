@@ -2,29 +2,46 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QDir>
+#include <QString>
 
 MusicPlayer::MusicPlayer(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-    ui.pushButton_2->setIcon(QIcon(":/C:/Users/Zu XiXin/Downloads/option.svg"));
-    ui.pushButton_5->setIcon(QIcon(":/C:/Users/Zu XiXin/Downloads/last.svg"));
-    ui.pushButton_3->setIcon(QIcon(":/C:/Users/Zu XiXin/Downloads/play.svg"));
-    ui.pushButton_4->setIcon(QIcon(":/C:/Users/Zu XiXin/Downloads/next.svg"));
-    ui.pushButton_6->setIcon(QIcon(":/C:/Users/Zu XiXin/Downloads/volume.svg"));
-    //new一个output对象
-    //QAudioOutput* audioOutput = new QAudioOutput(QAudioFormat(), this);
+    ui.pushButton_2->setIcon(QIcon(":/option.svg"));
+    ui.pushButton_5->setIcon(QIcon(":/last.svg"));
+    ui.pushButton_3->setIcon(QIcon(":/play.svg"));
+    ui.pushButton_4->setIcon(QIcon(":/next.svg"));
+    ui.pushButton_6->setIcon(QIcon(":/volume.svg"));
+
     //new一个媒体播放对象
     mediaPlayer = new QMediaPlayer(this);
-    //mediaPlayer->setMedia(QUrl::fromLocalFile("D:/workspace/MyNote/QtObject/MusicPlayer/Numb-Linkin Park.128.mp3"));
-    //mediaPlayer->setVolume(30);
-    //mediaPlayer->play();
+    mediaPlayer->setVolume(30);
+    ui.verticalSlider->setRange(0, 100);
+    ui.verticalSlider->setValue(30);
+    
+    //获取当前媒体的时长
+    connect(mediaPlayer, &QMediaPlayer::durationChanged, this, [this](qint64 duration) {
+        ui.totalLabel->setText(QString("%1:%2").arg(duration / 1000 / 60, 2, 10, QChar('0')).arg(duration / 1000 % 60, 2, 10, QChar('0')));
+        ui.horizontalSlider->setRange(0, duration);
+        });
+
+    //获取当前播放的时长
+    connect(mediaPlayer, &QMediaPlayer::positionChanged, this, [this](qint64 pos) {
+        ui.curLabel->setText(QString("%1:%2").arg(pos / 1000 / 60, 2, 10, QChar('0')).arg(pos / 1000 % 60, 2, 10, QChar('0')));
+        ui.horizontalSlider->setValue(pos);
+        });
+
+    //拖动滑块，让音乐播放的进度改变
+    connect(ui.horizontalSlider, &QSlider::sliderMoved, mediaPlayer, &QMediaPlayer::setPosition);
+
+    connect(ui.verticalSlider, &QSlider::sliderMoved, mediaPlayer, &QMediaPlayer::setVolume);
 }
 
 void MusicPlayer::on_pushButton_clicked() {
     //qInfo() << "Hello";
     //打开文件对话框，让用户选择音乐所在的目录
-    QString path = QFileDialog::getExistingDirectory(this, "请选择音乐所在的目录", "C:/");
+    QString path = QFileDialog::getExistingDirectory(this, "请选择音乐所在的目录", "D:/");
     //qInfo() << path;
     //根据路径，获取文件夹下所有mp3,wav文件
     QDir dir(path);
@@ -51,6 +68,10 @@ void MusicPlayer::on_pushButton_clicked() {
 
 //播放当前选中的音乐,如果现在正在播放音乐停止
 void MusicPlayer::on_pushButton_3_clicked() {
+    //作一个错误处理
+    if (playList.empty()) {
+        return;
+    }
     switch (mediaPlayer->state()) {
     case QMediaPlayer::StoppedState:
         //获取选中的行号

@@ -1,19 +1,18 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MusicPlayer.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.14.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.3)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include <memory>
 #include "../../../MusicPlayer.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'MusicPlayer.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.14.2. It"
+#error "This file was generated using the moc from 5.9.3. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -22,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MusicPlayer_t {
-    QByteArrayData data[9];
-    char stringdata0[153];
+    QByteArrayData data[8];
+    char stringdata0[141];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,22 +38,20 @@ QT_MOC_LITERAL(3, 35, 23), // "on_pushButton_3_clicked"
 QT_MOC_LITERAL(4, 59, 23), // "on_pushButton_4_clicked"
 QT_MOC_LITERAL(5, 83, 23), // "on_pushButton_5_clicked"
 QT_MOC_LITERAL(6, 107, 27), // "on_listWidget_doubleClicked"
-QT_MOC_LITERAL(7, 135, 11), // "QModelIndex"
-QT_MOC_LITERAL(8, 147, 5) // "index"
+QT_MOC_LITERAL(7, 135, 5) // "index"
 
     },
     "MusicPlayer\0on_pushButton_clicked\0\0"
     "on_pushButton_3_clicked\0on_pushButton_4_clicked\0"
     "on_pushButton_5_clicked\0"
-    "on_listWidget_doubleClicked\0QModelIndex\0"
-    "index"
+    "on_listWidget_doubleClicked\0index"
 };
 #undef QT_MOC_LITERAL
 
 static const uint qt_meta_data_MusicPlayer[] = {
 
  // content:
-       8,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
        5,   14, // methods
@@ -76,7 +73,7 @@ static const uint qt_meta_data_MusicPlayer[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 7,    8,
+    QMetaType::Void, QMetaType::QModelIndex,    7,
 
        0        // eod
 };
@@ -84,7 +81,7 @@ static const uint qt_meta_data_MusicPlayer[] = {
 void MusicPlayer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<MusicPlayer *>(_o);
+        MusicPlayer *_t = static_cast<MusicPlayer *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_pushButton_clicked(); break;
@@ -97,14 +94,10 @@ void MusicPlayer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject MusicPlayer::staticMetaObject = { {
-    QMetaObject::SuperData::link<QMainWindow::staticMetaObject>(),
-    qt_meta_stringdata_MusicPlayer.data,
-    qt_meta_data_MusicPlayer,
-    qt_static_metacall,
-    nullptr,
-    nullptr
-} };
+const QMetaObject MusicPlayer::staticMetaObject = {
+    { &QMainWindow::staticMetaObject, qt_meta_stringdata_MusicPlayer.data,
+      qt_meta_data_MusicPlayer,  qt_static_metacall, nullptr, nullptr}
+};
 
 
 const QMetaObject *MusicPlayer::metaObject() const
