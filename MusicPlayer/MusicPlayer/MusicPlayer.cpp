@@ -59,7 +59,10 @@ void MusicPlayer::on_pushButton_clicked() {
     for (auto& file : musicList) {
         playList.append(QUrl::fromLocalFile(path + "/" + file));
     }
-
+    for (auto& str : musicList) {
+        musicPath.append(str);
+    }
+    qInfo() << musicPath;
     
     ui.listWidget->setCurrentRow(0); 
     //qInfo() << playList;
@@ -78,6 +81,7 @@ void MusicPlayer::on_pushButton_3_clicked() {
         curPlayIndex = ui.listWidget->currentRow();
         mediaPlayer->setMedia(playList[curPlayIndex]);
         mediaPlayer->play();
+        openLrc();
         break;
     case QMediaPlayer::PlayingState:
         mediaPlayer->pause();
@@ -94,6 +98,7 @@ void MusicPlayer::on_pushButton_4_clicked() {
     ui.listWidget->setCurrentRow(curPlayIndex);
     mediaPlayer->setMedia(playList[curPlayIndex]);
     mediaPlayer->play();
+    openLrc();
 }
 
 //播放上一首
@@ -102,6 +107,7 @@ void MusicPlayer::on_pushButton_5_clicked() {
     ui.listWidget->setCurrentRow(curPlayIndex);
     mediaPlayer->setMedia(playList[curPlayIndex]);
     mediaPlayer->play();
+    openLrc();
 }
 
 //从播放列表选择播放
@@ -110,4 +116,30 @@ void MusicPlayer::on_listWidget_doubleClicked(const QModelIndex& index) {
     ui.listWidget->setCurrentRow(curPlayIndex);
     mediaPlayer->setMedia(playList[curPlayIndex]);
     mediaPlayer->play();
+    openLrc();
+}
+
+void MusicPlayer::openLrc() {
+    //选择歌词路径
+    qInfo() << playList[curPlayIndex].toString();
+    qInfo() << QFileInfo(musicPath[curPlayIndex]).absolutePath();
+    QString path = QFileInfo(musicPath[curPlayIndex]).absolutePath() + "/lrc/" + getFileName(playList[curPlayIndex]) + ".txt";
+    qInfo() << path;
+    QFile lrcFile(path);
+    ui.listWidget_2->clear();
+    if (lrcFile.open(QIODevice::ReadOnly)) {
+        //歌词文件打开成功
+        qInfo() << "lrc File Open Success";
+    }
+    else {
+        //歌词文件打开失败
+        qInfo() << "lrc File Open Fail";
+    }
+    QList<QString> musicLrc;
+    
+}
+
+QString getFileName(QUrl url) {
+    qInfo() << QFileInfo(url.toString()).baseName();
+    return QFileInfo(url.toString()).baseName();
 }

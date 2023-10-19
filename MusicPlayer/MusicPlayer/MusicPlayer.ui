@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>372</width>
+    <width>811</width>
     <height>544</height>
    </rect>
   </property>
@@ -27,7 +27,16 @@ QPushButton:hover
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QListWidget" name="listWidget"/>
+     <widget class="QWidget" name="widget_4" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QListWidget" name="listWidget"/>
+       </item>
+       <item>
+        <widget class="QListWidget" name="listWidget_2"/>
+       </item>
+      </layout>
+     </widget>
     </item>
     <item>
      <widget class="QWidget" name="widget_2" native="true">
@@ -275,7 +284,7 @@ QPushButton:hover
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>372</width>
+     <width>811</width>
      <height>23</height>
     </rect>
    </property>

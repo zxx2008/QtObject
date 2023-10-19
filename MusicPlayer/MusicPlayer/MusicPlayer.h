@@ -13,6 +13,7 @@ class MusicPlayer : public QMainWindow
 
 public:
     MusicPlayer(QWidget *parent = Q_NULLPTR);
+    void openLrc(); //导入歌词
 
 public slots:
     void on_pushButton_clicked();
@@ -26,4 +27,7 @@ private:
     QList<QUrl> playList;
     QMediaPlayer* mediaPlayer;
     int curPlayIndex = 0;
+    QList<QString> musicPath;
 };
+
+QString getFileName(QUrl url);  //从URL中获取文件名

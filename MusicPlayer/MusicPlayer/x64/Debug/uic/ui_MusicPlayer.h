@@ -34,7 +34,10 @@ class Ui_MusicPlayerClass
 public:
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
+    QWidget *widget_4;
+    QHBoxLayout *horizontalLayout_4;
     QListWidget *listWidget;
+    QListWidget *listWidget_2;
     QWidget *widget_2;
     QHBoxLayout *horizontalLayout_2;
     QLabel *curLabel;
@@ -60,7 +63,7 @@ public:
     {
         if (MusicPlayerClass->objectName().isEmpty())
             MusicPlayerClass->setObjectName(QStringLiteral("MusicPlayerClass"));
-        MusicPlayerClass->resize(372, 544);
+        MusicPlayerClass->resize(811, 544);
         MusicPlayerClass->setStyleSheet(QLatin1String("*{\n"
 "border:none\n"
 "}\n"
@@ -76,10 +79,24 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        listWidget = new QListWidget(centralWidget);
+        widget_4 = new QWidget(centralWidget);
+        widget_4->setObjectName(QStringLiteral("widget_4"));
+        horizontalLayout_4 = new QHBoxLayout(widget_4);
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        listWidget = new QListWidget(widget_4);
         listWidget->setObjectName(QStringLiteral("listWidget"));
 
-        verticalLayout->addWidget(listWidget);
+        horizontalLayout_4->addWidget(listWidget);
+
+        listWidget_2 = new QListWidget(widget_4);
+        listWidget_2->setObjectName(QStringLiteral("listWidget_2"));
+
+        horizontalLayout_4->addWidget(listWidget_2);
+
+
+        verticalLayout->addWidget(widget_4);
 
         widget_2 = new QWidget(centralWidget);
         widget_2->setObjectName(QStringLiteral("widget_2"));
@@ -191,7 +208,7 @@ public:
         MusicPlayerClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MusicPlayerClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 372, 23));
+        menuBar->setGeometry(QRect(0, 0, 811, 23));
         MusicPlayerClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MusicPlayerClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
