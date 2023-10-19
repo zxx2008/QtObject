@@ -28,6 +28,7 @@ private:
     QMediaPlayer* mediaPlayer;
     int curPlayIndex = 0;
     QList<QString> musicPath;
+    QList<QString> musicLrc;
 };
 
 QString getFileName(QUrl url);  //从URL中获取文件名

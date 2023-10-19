@@ -121,21 +121,30 @@ void MusicPlayer::on_listWidget_doubleClicked(const QModelIndex& index) {
 
 void MusicPlayer::openLrc() {
     //选择歌词路径
-    qInfo() << playList[curPlayIndex].toString();
-    qInfo() << QFileInfo(musicPath[curPlayIndex]).absolutePath();
-    QString path = QFileInfo(musicPath[curPlayIndex]).absolutePath() + "/lrc/" + getFileName(playList[curPlayIndex]) + ".txt";
+    //qInfo() << playList[curPlayIndex].toString();
+    //qInfo() << QFileInfo(musicPath[curPlayIndex]).absolutePath();
+    QString path = "D:/BaiduNetdiskDownload/music/lrc/" + getFileName(playList[curPlayIndex]) + ".txt";
     qInfo() << path;
     QFile lrcFile(path);
     ui.listWidget_2->clear();
     if (lrcFile.open(QIODevice::ReadOnly)) {
         //歌词文件打开成功
         qInfo() << "lrc File Open Success";
+        QTextStream lrcFileStream(&lrcFile);
+        lrcFileStream.setCodec("UTF-8");
+        int musicLrcLineCounter = 0;
+        while (!lrcFileStream.atEnd())
+        {
+            QString line = lrcFile.readLine();
+            musicLrc[musicLrcLineCounter++] = line;
+        }
+        lrcFile.close();
     }
     else {
         //歌词文件打开失败
         qInfo() << "lrc File Open Fail";
     }
-    QList<QString> musicLrc;
+    
     
 }
 
